@@ -5,42 +5,6 @@ READNULLCMD=${PAGER:-/usr/bin/pager}
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 
-
-# Source keybindings
-source ~/.zshrc.keybindings;
-
-# grep for running process, like: 'any vim'
-any() {
-	if [[ -z "$1" ]] ; then
-		echo "any - grep for process(es) by keyword" >&2
-		echo "Usage: any <keyword>" >&2 ; return 1
-	else
-		local STRING=$1
-		local LENGTH=$(expr length $STRING)
-		local FIRSCHAR=$(echo $(expr substr $STRING 1 1))
-		local REST=$(echo $(expr substr $STRING 2 $LENGTH))
-		ps xauwww| grep "[$FIRSCHAR]$REST"
-	fi
-}
-
-# Source completion settings
-source ~/.zshrc.completion;
-
-# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either
-zle_highlight=(isearch:underline)
-
-# make sure our function directories exist and load from them
-foreach function_directory (~/.zsh/functions ~/.zsh/functions/hooks); do;
-[[ -d $function_directory ]] || print -P "$fg_bold[red]WARNING:$fg_no_bold[default] $function_directory does not exist. Shell functionality will be severely limited!"
-done;
-fpath+=(~/.zsh/functions ~/.zsh/functions/hooks)
-autoload -- ~/.zsh/functions/[^_]*(:t) ~/.zsh/functions/hooks/[^_]*(:t)
-
-RPROMPT="%(?..${fg_light_gray}[$fg_red%U%?%u${fg_light_gray}]$fg_no_colour) %h %D{%T %a %e.%m.%Y}"
-#PS2='%_ > '                                     # show for i in 1 2 3 \r foo >
-#RPS2="<%^"                                      # _right_ PS2
-SPROMPT="zsh: correct '%R' to '%r'? [N/y/a/e] "  # the prompt we see when being asked for substitutions
-
 PATH+=:/usr/bin
 PATH=/usr/local/bin:$PATH
 [[ -d /usr/lib/ccache ]] && PATH=/usr/lib/ccache:$PATH
@@ -92,6 +56,41 @@ echo "WARNING: You do not have any browser installed!"
 ([[ -x $(which colordiff) ]] && export DIFFER="colordiff") || \
 ([[ -x $(which diff) ]]      && export DIFFER="diff")      || \
 echo "WARNING: You do not have any differ installed!"
+
+# make sure our function directories exist and load from them
+foreach function_directory (~/.zsh/functions ~/.zsh/functions/hooks); do;
+[[ -d $function_directory ]] || print -P "$fg_bold[red]WARNING:$fg_no_bold[default] $function_directory does not exist. Shell functionality will be severely limited!"
+done;
+fpath+=(~/.zsh/functions ~/.zsh/functions/hooks)
+autoload -- ~/.zsh/functions/[^_]*(:t) ~/.zsh/functions/hooks/[^_]*(:t)
+
+RPROMPT="%(?..${fg_light_gray}[$fg_red%U%?%u${fg_light_gray}]$fg_no_colour) %h %D{%T %a %e.%m.%Y}"
+#PS2='%_ > '                                     # show for i in 1 2 3 \r foo >
+#RPS2="<%^"                                      # _right_ PS2
+SPROMPT="zsh: correct '%R' to '%r'? [N/y/a/e] "  # the prompt we see when being asked for substitutions
+
+# Source keybindings
+source ~/.zshrc.keybindings;
+
+# grep for running process, like: 'any vim'
+any() {
+	if [[ -z "$1" ]] ; then
+		echo "any - grep for process(es) by keyword" >&2
+		echo "Usage: any <keyword>" >&2 ; return 1
+	else
+		local STRING=$1
+		local LENGTH=$(expr length $STRING)
+		local FIRSCHAR=$(echo $(expr substr $STRING 1 1))
+		local REST=$(echo $(expr substr $STRING 2 $LENGTH))
+		ps xauwww| grep "[$FIRSCHAR]$REST"
+	fi
+}
+
+# Source completion settings
+source ~/.zshrc.completion;
+
+# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either
+zle_highlight=(isearch:underline)
 
 # Source setopt options
 source ~/.zshrc.setopt;
