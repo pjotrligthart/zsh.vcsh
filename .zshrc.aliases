@@ -1,0 +1,128 @@
+# quick editor commands
+alias vimrc="$EDITOR ~/.vimrc"
+alias zshrc="$EDITOR ~/.zshrc"
+alias zshrc.staging="$EDITOR ~/.zshrc.staging"
+alias zshrc.local="$EDITOR ~/.zshrc.$HOST"
+
+
+# shortcuts
+alias a='aptitude'
+alias ai='aptitude install'
+alias as='aptitude search'
+alias ass='aptitude show'
+alias au='aptitude update'
+alias asu='aptitude safe-upgrade'
+
+alias afu='apt-file update'
+alias afs='apt-file search'
+alias afsl='apt-file -l search'
+
+#alias a=alias
+alias ua=unalias
+
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias ll='ls -l'
+alias lll="ll $* | less -r"
+alias lh='ls -lh'
+alias ld='ls -ld'
+alias l='ll'
+
+alias v='vim'
+
+alias sr='screen -r'
+alias sdr='screen -D -r'
+alias scls='screen -ls'
+alias scdr='screen -dr'
+
+#edit without a trace
+alias vim-noswap='vim -n -i NONE --cmd "setlocal noswapfile" --cmd "set nocompatible" --cmd "set tabstop=4" -u NONE'
+
+alias dd_status='kill -SIGUSR1 $(pidof dd)'
+
+# various stuff to make the commands more sane
+alias mv='nocorrect mv -i'      # prompt before overwriting files
+alias mkdir='nocorrect mkdir'   # don't correct mkdir
+alias man='nocorrect man'
+alias wget='noglob wget'
+alias whois='whois -H'
+alias gpg='gpg --no-use-agent'
+alias grep='grep --color=auto'
+alias scp='noglob scp_wrap'
+alias vimdiff='vimdiff -O2'
+
+alias why='whence -ca'
+
+# useful to see what hogs your disk (this is so i can actually find this damn alias in here: find disk space)
+# this will most likely die soon. ncdu is way better
+alias sz='du -ax | sort -n | tail -n 10'
+
+# various stuff from thailand
+alias s='sync'
+alias dt='dmesg | tail'
+alias dh='df -h'
+alias dm='df -m'
+
+# ebg13 vf frpher
+alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
+
+# base64 conversion
+alias base64-encode='perl -MMIME::Base64 -e "print encode_base64(<>)" <<<'
+alias base64-decode='perl -MMIME::Base64 -e "print decode_base64(<>)" <<<'
+
+
+
+# display the ten newest files
+alias lsnew="ls -rl *(D.om[1,10])"
+# display the ten oldest files
+alias lsold="ls -rtlh *(D.om[1,10])"
+# display the ten smallest files
+alias lssmall="ls -Srl *(.oL[1,10])"
+
+#ssh & scp without security checks
+alias ssh-noverify='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
+alias scp-noverify='scp -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
+
+# serial console stuff
+alias serial_115200_7bit='screen /dev/ttyUSB0 115200,cs7'
+alias serial_2400_8bit_noflow='screen /dev/ttyUSB0 2400,cs8,ixoff'
+alias serial_9600_8bit='screen /dev/ttyUSB0 9600,cs8'
+
+# git stuff
+alias gcd='git checkout'
+
+# global aliases. use with care!
+alias -g C='| wc -l'
+alias -g N='1>/dev/null 2>/dev/null'
+alias -g E='| egrep'
+alias -g G='| grep -i'
+alias -g GV='| grep -iv'
+alias -g H='| head'
+alias -g H1='| head -n1'
+alias -g H5='| head -n5'
+alias -g H10='| head -n10'
+alias -g T='| tail'
+alias -g T1='| tail -n1'
+alias -g T5='| tail -n5'
+alias -g T10='| tail -n10'
+alias -g L='| $PAGER'
+alias -g V='| vim -'
+alias -g X='| xargs'
+alias -g      ...=../..
+alias -g     ....=../../..
+alias -g    .....=../../../..
+alias -g   ......=../../../../..
+alias -g  .......=../../../../../..
+alias -g ........=../../../../../../..
+
+alias -g S='| sort'
+alias -g SN='| sort -n'
+alias -g SNR='| sort -nr'
+alias -g SHR='| sort -Hr'
+
+alias -g A='| awk '
+alias -g A1="| awk '{print \$1}'"
+alias -g A2="| awk '{print \$2}'"
+alias -g A3="| awk '{print \$3}'"
+alias -g A4="| awk '{print \$4}'"
+alias -g A5="| awk '{print \$5}'"
