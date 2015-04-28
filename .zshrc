@@ -5,152 +5,8 @@ READNULLCMD=${PAGER:-/usr/bin/pager}
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 
-
-if [[ "$TERM" != emacs ]]; then
-	[[ -z "$terminfo[kdch1]" ]]        || bindkey -M emacs "$terminfo[kdch1]"       delete-char
-	[[ -z "$terminfo[khome]" ]]        || bindkey -M emacs "$terminfo[khome]"       beginning-of-line
-	[[ -z "$terminfo[kend]"  ]]        || bindkey -M emacs "$terminfo[kend]"        end-of-line
-	[[ -z "$terminfo[kich1]" ]]        || bindkey -M emacs "$terminfo[kich1]"       overwrite-mode
-	[[ -z "$terminfo[kdch1]" ]]        || bindkey -M vicmd "$terminfo[kdch1]"       vi-delete-char
-	[[ -z "$terminfo[khome]" ]]        || bindkey -M vicmd "$terminfo[khome]"       vi-beginning-of-line
-	[[ -z "$terminfo[kend]"  ]]        || bindkey -M vicmd "$terminfo[kend]"        vi-end-of-line
-	[[ -z "$terminfo[kich1]" ]]        || bindkey -M vicmd "$terminfo[kich1]"       overwrite-mode
-
-	[[ -z "$terminfo[cuu1]"  ]]        || bindkey -M viins "$terminfo[cuu1]"        vi-up-line-or-history
-	[[ -z "$terminfo[cuf1]"  ]]        || bindkey -M viins "$terminfo[cuf1]"        vi-forward-char
-	[[ -z "$terminfo[kcuu1]" ]]        || bindkey -M viins "$terminfo[kcuu1]"       vi-up-line-or-history
-	[[ -z "$terminfo[kcud1]" ]]        || bindkey -M viins "$terminfo[kcud1]"       vi-down-line-or-history
-	[[ -z "$terminfo[kcuf1]" ]]        || bindkey -M viins "$terminfo[kcuf1]"       vi-forward-char
-	[[ -z "$terminfo[kcub1]" ]]        || bindkey -M viins "$terminfo[kcub1]"       vi-backward-char
-
-	# ncurses stuff
-	[[ "$terminfo[kcuu1]" == "O"* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" up-line-or-history
-	[[ "$terminfo[kcud1]" == "O"* ]] && bindkey -M viins "${terminfo[kcud1]/O/[}" down-line-or-history
-	[[ "$terminfo[kcuf1]" == "O"* ]] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
-	[[ "$terminfo[kcub1]" == "O"* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
-	[[ "$terminfo[khome]" == "O"* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
-	[[ "$terminfo[kend]"  == "O"* ]] && bindkey -M viins "${terminfo[kend]/O/[}"  end-of-line
-	[[ "$terminfo[khome]" == "O"* ]] && bindkey -M emacs "${terminfo[khome]/O/[}" beginning-of-line
-	[[ "$terminfo[kend]"  == "O"* ]] && bindkey -M emacs "${terminfo[kend]/O/[}"  end-of-line
-fi
-
-case "$TERM" in
-	linux)	# Linux console
-		bindkey '\e[1~'   beginning-of-line      # Home 
-		bindkey '\e[4~'   end-of-line            # End  
-		bindkey '\e[3~'   delete-char            # Del
-		bindkey '\e[2~'   overwrite-mode         # Insert  
-	;;
-	screen)
-		bindkey '\e[1~'   beginning-of-line      # Home
-		bindkey '\e[4~'   end-of-line            # End
-		bindkey '\e[3~'   delete-char            # Del
-		bindkey '\e[2~'   overwrite-mode         # Insert
-		bindkey '\e[7~'   beginning-of-line      # Home
-		bindkey '\e[8~'   end-of-line            # End
-		bindkey '\eOc'    forward-word           # ctrl cursor right
-		bindkey '\eOd'    backward-word          # ctrl cursor left
-		bindkey '\e[3~'   backward-delete-char   # This should not be necessary!
-	;;
-	rxvt)
-		bindkey '\e[7~'   beginning-of-line      # Home
-		bindkey '\e[8~'   end-of-line            # End
-		bindkey '\eOc'    forward-word           # ctrl cursor right
-		bindkey '\eOd'    backward-word          # ctrl cursor left
-		bindkey '\e[3~'   backward-delete-char   # This should not be necessary!
-		bindkey '\e[2~'   overwrite-mode         # Insert
-	;;
-	xterm*)
-		bindkey '\e[H'    beginning-of-line      # Home
-		bindkey '\e[F'    end-of-line            # End
-		bindkey '\e[3~'   delete-char            # Del
-		bindkey '\e[2~'   overwrite-mode         # Insert
-		bindkey "^[[5C"   forward-word           # ctrl cursor right
-		bindkey "^[[5D"   backward-word          # ctrl cursor left
-		bindkey "^[[1;5C" forward-word           # ctrl cursor right
-		bindkey "^[[1;5D" backward-word          # ctrl cursor left
-	;;
-	sun)
-		bindkey '\e[214z' beginning-of-line      # Home
-		bindkey '\e[220z' end-of-line            # End
-		bindkey '^J'      delete-char            # Del
-		bindkey '^H'      backward-delete-char   # Backspace
-		bindkey '\e[247z' overwrite-mode         # Insert
-	;;
-esac
-
-# bindkey -e; bindkey ' ' magic-space # do i want to use this, again?
-
-# look at http://www.michael-prokop.at/computer/config/.zsh/zsh_keybindings for a partial list of keys
-bindkey '^R'    history-incremental-search-backward   # ctrl-r
-bindkey '^t'    expand-or-complete-prefix
-bindkey "^[[5~" history-beginning-search-backward     # PgUp for history search
-bindkey '^[[6~' history-beginning-search-forward      # PgDown for history search
-bindkey '^[[3~' delete-char                           # Backsapce
-bindkey '^[[H'  beginning-of-line
-bindkey '^[[F'  end-of-line
-
-bindkey '^[#'   pound-insert                          # toggle a hash pound in front of the edit buffer and accept-line
-bindkey '^f'    push-line                             # push command, pop automagically after next <CR>
-#bindkey '^Z'    undo                                  # undo changes on zle
-bindkey -s '^B' " &\n"                                # run in background
-bindkey -s '^Z' "fg\n"                                # fetch background job into foreground
-
-# insert Unicode character
-autoload      insert-unicode-char
-zle -N        insert-unicode-char
-bindkey '^xi' insert-unicode-char
-
-# "ctrl-e D" to insert the actual datetime YYYY/MM
-              __insert-datetime-directory() { BUFFER="$BUFFER$(date '+%Y/%m')"; CURSOR=$#BUFFER; }
-zle -N        __insert-datetime-directory
-bindkey '^eD' __insert-datetime-directory
-
-# "ctrl-e d" to insert the actual datetime YYYY-MM-DD--hh-mm-ss-TZ
-              __insert-datetime-default() { BUFFER="$BUFFER$(date '+%F--%H-%M-%S-%Z')"; CURSOR=$#BUFFER; }
-zle -N        __insert-datetime-default
-bindkey '^ed' __insert-datetime-default
-
-# "ctrl-e w" to delete to prior whitespace
-autoload -U   delete-whole-word-match
-zle -N        delete-whole-word-match
-bindkey "^ew" delete-whole-word-match
-
-# "ctrl-e ." to insert last typed word again
-              __insert-last-typed-word() { zle insert-last-word -- 0 -1 };
-zle -N        __insert-last-typed-word;
-bindkey "^e." __insert-last-typed-word
-
-# "ctrl-e q" to quote line
-__quote_line () {
-	zle beginning-of-line
-	zle forward-word
-	RBUFFER=${(q)RBUFFER}
-	zle end-of-line
-}
-zle -N        __quote_line
-bindkey '^eq' __quote_line
-
-# "ctrl-e 1" to jump behind the first word on the cmdline
-function __jump_behind_first_word() {
-	local words
-	words=(${(z)BUFFER})
-
-	if (( ${#words} <= 1 )) ; then
-		CURSOR=${#BUFFER}
-	else
-		CURSOR=${#${words[1]}}
-	fi
-}
-zle -N        __jump_behind_first_word
-bindkey '^e1' __jump_behind_first_word
-
-# weird completion style
-## press "ctrl-x f" to complete file, no matter what the completion system would do
-#zle -C complete-file complete-word _generic
-#zstyle ':completion:user-expand:*' completer _user_expand
-#zstyle ':completion:complete-file:*' completer _path_files
-#bindkey '^xf' complete-file
+# Source keybindings
+source ~/.zshrc.keybindings;
 
 # grep for running process, like: 'any vim'
 any() {
@@ -212,11 +68,11 @@ zstyle ':completion:*' special-dirs true
 # SSH host completion
 #if [[ -r .ssh/known_hosts ]]; then
 #	local knownhosts
-#	knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} ) 
+#	knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
 #	zstyle    ':completion:*:(ssh|scp|sftp):*' hosts $knownhosts
 #fi
 
-# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either 
+# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either
 zle_highlight=(isearch:underline)
 
 # make sure our function directories exist and load from them
@@ -228,8 +84,8 @@ autoload -- ~/.zsh/functions/[^_]*(:t) ~/.zsh/functions/hooks/[^_]*(:t)
 
 
 RPROMPT="%(?..${fg_light_gray}[$fg_red%U%?%u${fg_light_gray}]$fg_no_colour) %h %D{%T %a %e.%m.%Y}"
-#PS2='%_ > '                                     # show for i in 1 2 3 \r foo > 
-#RPS2="<%^"                                      # _right_ PS2 
+#PS2='%_ > '                                     # show for i in 1 2 3 \r foo >
+#RPS2="<%^"                                      # _right_ PS2
 SPROMPT="zsh: correct '%R' to '%r'? [N/y/a/e] "  # the prompt we see when being asked for substitutions
 
 
@@ -288,7 +144,7 @@ echo "WARNING: You do not have any differ installed!"
 
 # set options
 setopt    append_history               # don't overwrite history
-setopt    extended_history             # [unset] 
+setopt    extended_history             # [unset]
 setopt    hist_find_no_dups            # [unset] ignore dupes in history search
 setopt    hist_ignore_dups             # this will not put _consecutive_ duplicates in the history
 setopt    hist_ignore_space            # if any command starts with a whitespace, it will not be saved. it will stil be displayed in the current session, though
