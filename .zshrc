@@ -95,48 +95,8 @@ echo "WARNING: You do not have any browser installed!"
 echo "WARNING: You do not have any differ installed!"
 
 
-# set options
-setopt    append_history               # don't overwrite history
-setopt    extended_history             # [unset]
-setopt    hist_find_no_dups            # [unset] ignore dupes in history search
-setopt    hist_ignore_dups             # this will not put _consecutive_ duplicates in the history
-setopt    hist_ignore_space            # if any command starts with a whitespace, it will not be saved. it will stil be displayed in the current session, though
-setopt    hist_verify                  # [unset] when doing history substitution, put the substituted line into the line editor
-# perhaps we want to change HISTCONTROL=ignoredups ?
-
-setopt    auto_remove_slash            # [unset] If a completion ends with a slash and you type another slash, remove one of them
-setopt    bg_nice                      # [set -6] Renice background jobs
-#setopt    cdablevars
-setopt    auto_param_slash             # [set] append a slash if completion target was a directory
-setopt    auto_cd                      # [unset] enables you to omit 'cd' before a path
-setopt    correct_all                  # Try to autocorrect commands & file names
-setopt    hash_list_all                # [set] always make sure that the entire command path is hashed
-setopt    short_loops                  # [unset] 'for i in *; echo $i;' instead of 'for i in *; do echo $i; done'
-#setopt globdots                # with this, we could treat dotfiles the same as normal ones
-
-setopt    interactive_comments         # with this, we can do 'some_evil_stuff # which we explain' and just execute some_evil_stuff
-setopt    list_packed                  # [unset] show compact completion list
-setopt    long_list_jobs               # [unset] show job number & PID when suspending
-setopt no_clobber                      # this will probihbit 'cat foo > bar' if bar exists. use >! instead
-setopt    extended_glob                # enables various things, most notably ^negation. '^', '#' and forgotwhich :/ see cheatsheet & http://zsh.dotsrc.org/Intro/intro_2.html#SEC2
-setopt    numeric_glob_sort            # [unset] enables numeric order in globs
-setopt    notify                       # [on] this will put info from finished background processes over the current line
-setopt    function_arg_zero            # [on] this will fill $0 with the function name, not 'zsh'
-# POSIX_BUILTINS                # find out about this one
-setopt    complete_in_word             # [unset] tab completion within words
-
-setopt    multios                      # this enables various goodness
-                                       # ls > foo > bar
-                                       # cmd > >(cmd1) > >(cmd2) # would redirect stdout from cmd to stdin of cmd1,2
-                                       # make install > /tmp/logfile | grep -i error
-setopt    braceccl                     # {a-z} {0-2} etc expansion
-setopt    prompt_subst                 # allow substition with $PS1, etc. Needed for vcs_info
-
-autoload  compinit;compinit            # this enables autocompletion for pretty much everything
-autoload  colors                       # use colors
-colors
-autoload  -Uz zmv                      # move function
-autoload  -Uz zed                      # edit functions within zle
+# Source setopt options
+source ~/.zshrc.setopt;
 
 
 
