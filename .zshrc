@@ -72,20 +72,6 @@ SPROMPT="zsh: correct '%R' to '%r'? [N/y/a/e] "  # the prompt we see when being 
 # Source keybindings
 source ~/.zshrc.keybindings;
 
-# grep for running process, like: 'any vim'
-any() {
-	if [[ -z "$1" ]] ; then
-		echo "any - grep for process(es) by keyword" >&2
-		echo "Usage: any <keyword>" >&2 ; return 1
-	else
-		local STRING=$1
-		local LENGTH=$(expr length $STRING)
-		local FIRSCHAR=$(echo $(expr substr $STRING 1 1))
-		local REST=$(echo $(expr substr $STRING 2 $LENGTH))
-		ps xauwww| grep "[$FIRSCHAR]$REST"
-	fi
-}
-
 # Source completion settings
 source ~/.zshrc.completion;
 
