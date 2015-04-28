@@ -38,6 +38,9 @@ zstyle ':vcs_info:*' enable git svn
 # Enable ..<TAB> -> ../
 zstyle ':completion:*' special-dirs true
 
+# make ^W on foo | bar delete 'bar', not '| bar'
+typeset WORDCHARS='|'$WORDCHARS
+
 # SSH host completion
 #if [[ -r .ssh/known_hosts ]]; then
 #	local knownhosts

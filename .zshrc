@@ -75,14 +75,8 @@ source ~/.zshrc.keybindings;
 # Source completion settings
 source ~/.zshrc.completion;
 
-# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either
-zle_highlight=(isearch:underline)
-
 # Source setopt options
 source ~/.zshrc.setopt;
-
-# make ^W on foo | bar delete 'bar', not '| bar'
-typeset WORDCHARS='|'$WORDCHARS
 
 # Source aliases
 source ~/.zshrc.aliases;

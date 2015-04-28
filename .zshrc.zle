@@ -1,3 +1,6 @@
+# ZLE highlighting. Will not work on 4.3.6 or before, but it will not hurt, either
+zle_highlight=(isearch:underline)
+
 # move cursor between chars when typing '', "", (), [], and {}
 magic-single-quotes()   { if [[ $LBUFFER[-1] == \' ]]; then zle self-insert; zle .backward-char; else zle self-insert; fi }; bindkey \' magic-single-quotes
 magic-double-quotes()   { if [[ $LBUFFER[-1] == \" ]]; then zle self-insert; zle .backward-char; else zle self-insert; fi }; bindkey \" magic-double-quotes
