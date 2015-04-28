@@ -108,17 +108,8 @@ typeset WORDCHARS='|'$WORDCHARS
 # Source aliases
 source ~/.zshrc.aliases;
 
-# named directories
-
-hash -d deb=/var/cache/apt/archives
-hash -d doc=/usr/share/doc
-hash -d grub=/boot/grub
-hash -d log=/var/log
-hash -d www=/var/www
-hash -d git=$HOME/work/git
-hash -d func=$HOME/.zsh/functions
-hash -d mr=$XDG_CONFIG_HOME/mr
-hash -d repo.d=$XDG_CONFIG_HOME/vcsh/repo.d
+# Source named directories
+source ~/.zshrc.named-dirs;
 
 # move cursor between chars when typing '', "", (), [], and {}
 magic-single-quotes()   { if [[ $LBUFFER[-1] == \' ]]; then zle self-insert; zle .backward-char; else zle self-insert; fi }; bindkey \' magic-single-quotes
