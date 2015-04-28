@@ -1,5 +1,4 @@
 # :completion:function:completer:command:argument:tag
-
 zstyle    ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                                   /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
@@ -38,7 +37,6 @@ zstyle ':vcs_info:*' enable git svn
 
 # Enable ..<TAB> -> ../
 zstyle ':completion:*' special-dirs true
-
 
 # SSH host completion
 #if [[ -r .ssh/known_hosts ]]; then

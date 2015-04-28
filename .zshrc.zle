@@ -41,7 +41,6 @@ zsh-mime-setup
 # Show what the completion system is trying to complete with at a given point
 bindkey '^Xh' _complete_help
 
-
 # "ctrl-x t" : tetris
 autoload -U   tetris
 zle -N        tetris
@@ -51,7 +50,6 @@ bindkey "^et" tetris ## C-x-t to play
 
 compdef _options toggleopt      # tab completion for toggleopt
 compdef _mkdir   mcd            # tab completion for mcd
-
 
 # "alt-h" : run run-help.
 # fancy stuff like "git add" starting man git-add works

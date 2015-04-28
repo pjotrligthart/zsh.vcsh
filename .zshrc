@@ -5,6 +5,7 @@ READNULLCMD=${PAGER:-/usr/bin/pager}
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 
+
 # Source keybindings
 source ~/.zshrc.keybindings;
 
@@ -35,12 +36,10 @@ done;
 fpath+=(~/.zsh/functions ~/.zsh/functions/hooks)
 autoload -- ~/.zsh/functions/[^_]*(:t) ~/.zsh/functions/hooks/[^_]*(:t)
 
-
 RPROMPT="%(?..${fg_light_gray}[$fg_red%U%?%u${fg_light_gray}]$fg_no_colour) %h %D{%T %a %e.%m.%Y}"
 #PS2='%_ > '                                     # show for i in 1 2 3 \r foo >
 #RPS2="<%^"                                      # _right_ PS2
 SPROMPT="zsh: correct '%R' to '%r'? [N/y/a/e] "  # the prompt we see when being asked for substitutions
-
 
 PATH+=:/usr/bin
 PATH=/usr/local/bin:$PATH
@@ -94,16 +93,11 @@ echo "WARNING: You do not have any browser installed!"
 ([[ -x $(which diff) ]]      && export DIFFER="diff")      || \
 echo "WARNING: You do not have any differ installed!"
 
-
 # Source setopt options
 source ~/.zshrc.setopt;
 
-
-
-
 # make ^W on foo | bar delete 'bar', not '| bar'
 typeset WORDCHARS='|'$WORDCHARS
-
 
 # Source aliases
 source ~/.zshrc.aliases;
@@ -113,7 +107,6 @@ source ~/.zshrc.named-dirs;
 
 # Source ZLE settings
 source ~/.zshrc.zle;
-
 
 startup
 
