@@ -1,10 +1,12 @@
 READNULLCMD=${PAGER:-/usr/bin/pager}
 
-## set variables
+## Set basic environment variables
 
+# Something basic from RichiH's dotfile
 XDG_CONFIG_HOME="$HOME/.config"
 XDG_CACHE_HOME="$HOME/.cache"
 
+# RichiH
 PATH+=:/usr/bin
 PATH=/usr/local/bin:$PATH
 [[ -d /usr/lib/ccache ]] && PATH=/usr/lib/ccache:$PATH
@@ -20,6 +22,7 @@ HISTFILE=~/.zsh_history
 SAVEHIST=50000
 HISTSIZE=50000
 
+# RichiH:
 EDITOR="vim"
 
 CORRECT_IGNORE='_*'
@@ -87,6 +90,8 @@ source ~/.zshrc.named-dirs;
 # Source ZLE settings
 source ~/.zshrc.zle;
 
+## Load other dotfiles
+# RichiH
 startup
 
 # source any local settings we might have
