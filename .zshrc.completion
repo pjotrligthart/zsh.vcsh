@@ -1,0 +1,49 @@
+# :completion:function:completer:command:argument:tag
+zstyle    ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+                                  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+# this will include newly installed programs into tab completion
+_force_rehash() { (( CURRENT == 1 )) && rehash return 1 }
+zstyle    ':completion:*' completers _force_rehash
+
+LISTMAX=0       # only ask if completion should be shown if it is larger than our screen
+# this will not complete dotfiles in ~, unless you provide at least .<tab>
+zstyle -e ':completion:*' ignored-patterns 'if [[ $PWD = ~ ]] && [[ ! $words[-1] == .* ]]; then reply=(.*); fi'
+# Don't complete backup files (e.g. 'bin/foo~') as executables
+zstyle    ':completion:*:complete:-command-::commands' ignored-patterns '*\~'
+# color completion
+zstyle    ':completion:*' list-colors ''
+# cache completions (think apt completion)
+zstyle    ':completion:*' use-cache on
+zstyle    ':completion:*' cache-path "$XDG_CACHE_HOME/zsh"
+
+# correctly color the ls completion
+eval $(dircolors)
+zstyle    ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# pretty kill completion. colored, cpu load & process tree
+zstyle    ':completion:*:kill:*' command 'ps xf -u $USER -o pid,%cpu,cmd'
+zstyle    ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+# vim completion: complete on aux|dvi|log|idx|pdf|rel|out last
+zstyle     ':completion::*:(vi|vim):*' file-patterns '*.nroff' '*~*.(aux|dvi|log|idx|pdf|rel|out)' '*'
+
+#vcs_info (needs PROMPT_SUBST set)
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f'
+zstyle ':vcs_info:*' formats       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+zstyle ':vcs_info:*' enable git svn
+
+# Enable ..<TAB> -> ../
+zstyle ':completion:*' special-dirs true
+
+# make ^W on foo | bar delete 'bar', not '| bar'
+typeset WORDCHARS='|'$WORDCHARS
+
+# SSH host completion
+#if [[ -r .ssh/known_hosts ]]; then
+#	local knownhosts
+#	knownhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+#	zstyle    ':completion:*:(ssh|scp|sftp):*' hosts $knownhosts
+#fi
