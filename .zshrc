@@ -19,6 +19,10 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
@@ -61,7 +65,7 @@ plugins=(adb git debian dirhistory extract git-flow github gpg-agent nmap python
 # PATH-variables
 
 # oh-my-zsh:
-# export PATH="/usr/lib/x86_64-linux-gnu/libfm:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+# export PATH="/usr/lib/ccache:/usr/lib/x86_64-linux-gnu/libfm:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # RichiH
