@@ -65,7 +65,7 @@ plugins=(adb git debian dirhistory extract git-flow github gpg-agent nmap python
 # PATH-variables
 
 # oh-my-zsh:
-# export PATH="/usr/lib/ccache:/usr/lib/x86_64-linux-gnu/libfm:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+# export PATH="/usr/lib/ccache:/usr/lib/x86_64-linux-gnu/libfm:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # RichiH
